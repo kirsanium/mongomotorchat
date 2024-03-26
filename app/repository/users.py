@@ -2,7 +2,7 @@ from uuid import uuid4, UUID
 from datetime import datetime
 import logging
 from pymongo import ReturnDocument
-
+import pytz
 from app.conf.config import Config
 from app.db.db import AsyncIOMotorClient
 from app.models.models import User, UserSecured
@@ -22,8 +22,8 @@ async def db_create_user(
         id=uuid4(),
         name=name,
         password=password,
-        created_at=datetime.utcnow(),
-        updated_at=datetime.utcnow(),
+        created_at=datetime.now(pytz.UTC),
+        updated_at=datetime.now(pytz.UTC),
         deleted=False,
     )
     logging.info(

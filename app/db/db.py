@@ -1,6 +1,5 @@
-import os
 from dotenv import load_dotenv
-from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
+from motor.motor_asyncio import AsyncIOMotorClient
 import logging
 
 from app.conf.config import Config

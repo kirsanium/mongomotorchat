@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, Response
 import logging
 from uuid import UUID
 from app.db.db import get_db, AsyncIOMotorClient
-from app.schemas.repository import db_create_user, db_get_users_without_password,\
+from app.repository.users import db_create_user, db_get_users_without_password,\
     db_get_user_without_password, db_update_user, db_delete_user
 from app.common.util import uuid_masker
 from app.common.error import UnprocessableError
@@ -77,7 +77,7 @@ async def get_users(
     return GetUsersResp(users=[GetUserResp(id=str(u.id), name=u.name) for u in users])
 
 
-@router.put('/{user_id}', include_in_schema=False, status_code=200)
+@router.put('/{user_id}/', include_in_schema=False, status_code=200)
 @router.put('/{user_id}', status_code=200,
             responses={
                 400: {}
@@ -103,7 +103,7 @@ async def update_sample_resource(
     return {}
 
 
-@router.delete('/{user_id}', include_in_schema=False, status_code=200)
+@router.delete('/{user_id}/', include_in_schema=False, status_code=200)
 @router.delete('/{user_id}', status_code=200,
                responses={
                    400: {}
