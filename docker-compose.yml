@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: releads
+    ports:
+      - 8888:8888
+    env_file: .env
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    volumes:
+      - /tmp/mongo:/data/db
+      - "$PWD/mongo-entrypoint/entrypoint.js:/docker-entrypoint-initdb.d/entrypoint.js:ro"
+    ports:
+      - 27017:27017
+    env_file: .env
